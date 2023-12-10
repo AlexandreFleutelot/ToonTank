@@ -21,6 +21,7 @@ public:
 	AToonTankPlayerController();
 	
 	virtual void Tick(float DeltaSeconds) override;
+	void SetPlayerEnabledState(bool bPlayerEnabled);
 	
 protected:
 	virtual void BeginPlay() override;

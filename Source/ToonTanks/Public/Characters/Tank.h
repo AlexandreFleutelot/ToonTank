@@ -23,9 +23,15 @@ public:
 
 	virtual void PossessedBy(AController* NewController) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void HandleDestruction() override;
+	virtual void BeginPlay() override;
+
+	APlayerController* GetTankPlayerController() const { return TankPlayerController; }
 
 	void Move(float Value);
 	void Turn(float Value);
+
+	bool bAlive = true;
 
 private:
 	
@@ -40,5 +46,6 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category="Components")
 	UCameraComponent* Camera;
-	
+
+	APlayerController* TankPlayerController;
 };

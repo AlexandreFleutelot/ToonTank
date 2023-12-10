@@ -6,6 +6,7 @@
 #include "GameFramework/Pawn.h"
 #include "BasePawn.generated.h"
 
+class AProjectile;
 class UCapsuleComponent;
 
 UCLASS()
@@ -19,6 +20,7 @@ public:
 
 	void RotateTurret(FVector LookAtTarget);
 	void Fire();
+	virtual void HandleDestruction();
 
 private:
 
@@ -33,5 +35,16 @@ private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components", meta=(AllowPrivateAccess = "true"))
 	USceneComponent* ProjectileSpawnPoint;
-		
+
+	UPROPERTY(EditDefaultsOnly, Category="Combat")
+	TSubclassOf<AProjectile> ProjectileClass;
+
+	UPROPERTY(EditAnywhere, Category="Combat")
+	UParticleSystem* DeathParticles;
+
+	UPROPERTY(EditAnywhere, Category="Combat")
+	USoundBase* DeathSound;
+
+	UPROPERTY(EditAnywhere, Category="Combat")
+	TSubclassOf<UCameraShakeBase> DeathCameraShake;
 };

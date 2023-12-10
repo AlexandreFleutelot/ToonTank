@@ -18,7 +18,8 @@ class TOONTANKS_API ATower : public ABasePawn
 public:
 	
 	virtual void Tick(float DeltaSeconds) override;
-
+	virtual void HandleDestruction() override;
+	
 	UPROPERTY(EditAnywhere, Category="Combat")
 	float FireRange=1000.f;
 

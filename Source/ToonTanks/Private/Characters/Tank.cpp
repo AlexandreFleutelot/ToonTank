@@ -29,6 +29,21 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
+void ATank::HandleDestruction()
+{
+	Super::HandleDestruction();
+	SetActorHiddenInGame(true);
+	SetActorTickEnabled(false);
+	bAlive=false;
+}
+
+void ATank::BeginPlay()
+{
+	Super::BeginPlay();
+	
+	TankPlayerController = Cast<APlayerController>(GetController());
+}
+
 void ATank::Move(float Value)
 {
 	const float DeltaTime = UGameplayStatics::GetWorldDeltaSeconds(this);

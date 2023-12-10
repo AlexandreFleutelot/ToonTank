@@ -2,6 +2,8 @@
 
 
 #include "Characters/BasePawn.h"
+
+#include "Actors/Projectile.h"
 #include "Components/CapsuleComponent.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -44,13 +46,31 @@ void ABasePawn::Fire()
 	FVector Location = ProjectileSpawnPoint->GetComponentLocation();
 	FRotator Rotation = ProjectileSpawnPoint->GetComponentRotation();
 
-	DrawDebugSphere(
-		GetWorld(),
-		Location,
-		25.f,
-		12,
-		FColor::Red,
-		false,
-		3.f
-		);
+	AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, Location, Rotation);
+	Projectile->SetOwner(this);
+}
+
+void ABasePawn::HandleDestruction()
+{
+	if (DeathParticles)
+	{
+		UGameplayStatics::SpawnEmitterAtLocation(
+			this,
+			DeathParticles,
+			GetActorLocation(),
+			GetActorRotation()
+			);
+	}
+	if (DeathSound)
+	{
+		UGameplayStatics::SpawnSoundAtLocation(
+			this,
+			DeathSound,
+			GetActorLocation(),
+			GetActorRotation());
+	}
+	if (DeathCameraShake)
+	{
+		GetWorld()->GetFirstPlayerController()->ClientStartCameraShake(DeathCameraShake);
+	}
 }

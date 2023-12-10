@@ -25,6 +25,20 @@ void AToonTankPlayerController::Tick(float DeltaSeconds)
 	RotateTurret(HitResult.Location);
 }
 
+void AToonTankPlayerController::SetPlayerEnabledState(bool bPlayerEnabled)
+{
+	if (bPlayerEnabled)
+	{
+		EnableInput(this);
+	}
+	else
+	{
+		DisableInput(this);
+	}
+	bShowMouseCursor = bPlayerEnabled;
+
+}
+
 void AToonTankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
